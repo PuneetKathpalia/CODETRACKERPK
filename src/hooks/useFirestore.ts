@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, onSnapshot, addDoc, updateDoc, doc, orderBy, serverTimestamp } from 'firebase/firestore';
+import { collection, query, onSnapshot, addDoc, updateDoc, doc, orderBy, serverTimestamp, deleteDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { Question } from '../types';
 
@@ -86,12 +86,25 @@ export const useFirestore = () => {
     }
   };
 
+  const deleteQuestion = async (id: string) => {
+    try {
+      const questionRef = doc(db, 'questions', id);
+      await deleteDoc(questionRef);
+      return true;
+    } catch (err) {
+      console.error("Error deleting question:", err);
+      setError("Failed to delete question. Please try again.");
+      return false;
+    }
+  };
+
   return {
     questions,
     loading,
     error,
     addQuestion,
     updateQuestion,
-    toggleCompletion
+    toggleCompletion,
+    deleteQuestion
   };
 };

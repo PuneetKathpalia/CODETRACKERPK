@@ -1,15 +1,17 @@
 import React from 'react';
 import { Question } from '../types';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Trash2 } from 'lucide-react';
 
 interface QuestionItemProps {
   question: Question;
   onToggleCompletion: (id: string, user: 'puneet' | 'komal', value: boolean) => void;
+  onDelete: (id: string) => void;
 }
 
 const QuestionItem: React.FC<QuestionItemProps> = ({ 
   question, 
-  onToggleCompletion 
+  onToggleCompletion,
+  onDelete
 }) => {
   const { id, link, difficulty, topic, doneBy } = question;
   
@@ -119,6 +121,13 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
               <span className="ml-2 text-sm font-medium">Komal</span>
             </label>
           </div>
+          <button
+            className="ml-4 text-red-500 hover:text-red-700"
+            title="Delete question"
+            onClick={() => onDelete(id)}
+          >
+            <Trash2 size={20} />
+          </button>
         </div>
       </div>
     </div>
