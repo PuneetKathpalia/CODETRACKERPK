@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-background-primary text-text-primary;
+  }
+
+  body {
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-accent-primary/30;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md transition-all duration-200 font-medium;
+  }
+
+  .btn-primary {
+    @apply bg-accent-primary hover:bg-accent-primary/90 text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-background-tertiary hover:bg-background-tertiary/90 text-text-primary;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 bg-background-tertiary border border-background-tertiary focus:border-accent-primary rounded-md text-text-primary outline-none transition-all duration-200;
+  }
+
+  .select {
+    @apply input appearance-none bg-background-tertiary;
+  }
+
+  .card {
+    @apply bg-background-secondary rounded-lg p-4 border border-background-tertiary transition-all duration-200 hover:border-background-tertiary/80;
+  }
+
+  .checkbox {
+    @apply h-5 w-5 rounded border border-background-tertiary bg-background-tertiary checked:bg-accent-primary focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 focus:ring-offset-background-secondary transition-all duration-200;
+  }
+}
