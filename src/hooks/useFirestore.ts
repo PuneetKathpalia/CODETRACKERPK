@@ -8,6 +8,7 @@ export const useFirestore = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Listen for real-time updates to the questions collection
   useEffect(() => {
     const q = query(collection(db, 'questions'), orderBy('createdAt', 'desc'));
     
@@ -37,6 +38,7 @@ export const useFirestore = () => {
       }
     );
 
+    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
