@@ -7,7 +7,7 @@ import { useFirestore } from '../hooks/useFirestore';
 import { Loader } from 'lucide-react';
 
 const QuestionList: React.FC = () => {
-  const { questions, loading, error, toggleCompletion } = useFirestore();
+  const { questions, loading, error, toggleCompletion, deleteQuestion } = useFirestore();
   const [difficultyFilter, setDifficultyFilter] = useState<FilterOption>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [topicFilter, setTopicFilter] = useState('');
@@ -122,6 +122,7 @@ const QuestionList: React.FC = () => {
                 key={question.id} 
                 question={question} 
                 onToggleCompletion={toggleCompletion}
+                onDelete={deleteQuestion}
               />
             ))}
           </div>
