@@ -48,7 +48,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   };
 
   return (
-    <div className="card mb-4 hover:shadow-custom transition-all">
+    <div className="mb-4 transition-all card hover:shadow-custom">
       <div className="flex flex-col sm:flex-row sm:items-center">
         <div className="flex-grow">
           <div className="flex items-center mb-2">
@@ -56,10 +56,10 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-accent-primary hover:underline flex items-center font-medium transition-colors"
+              className="flex items-center font-medium transition-colors text-accent-primary hover:underline"
             >
               {getProblemName(link)}
-              <ExternalLink size={14} className="ml-1 inline" />
+              <ExternalLink size={14} className="inline ml-1" />
             </a>
           </div>
           
@@ -85,38 +85,32 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
           </div>
         </div>
         
-        <div className="flex items-center space-x-6 mt-4 sm:mt-0">
+        <div className="flex items-center mt-4 space-x-6 sm:mt-0">
           <div className="flex items-center">
-            <input
-              type="checkbox"
-              id={`puneet-${id}`}
-              className="sr-only peer"
-              checked={doneBy.puneet}
-              onChange={(e) => onToggleCompletion(id, 'puneet', e.target.checked)}
-            />
-            <label
-              htmlFor={`puneet-${id}`}
-              className="relative flex items-center cursor-pointer"
-            >
-              <div className="w-10 h-5 bg-background-tertiary rounded-full peer-checked:bg-accent-primary peer-focus:outline-none transition-colors"></div>
+            <label>
+              <input
+                type="checkbox"
+                id={`puneet-${id}`}
+                className="sr-only peer"
+                checked={doneBy.puneet}
+                onChange={(e) => onToggleCompletion(id, 'puneet', e.target.checked)}
+              />
+              <div className="w-10 h-5 transition-colors rounded-full bg-background-tertiary peer-checked:bg-accent-primary peer-focus:outline-none"></div>
               <div className="absolute left-[2px] w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></div>
               <span className="ml-2 text-sm font-medium">Puneet</span>
             </label>
           </div>
           
           <div className="flex items-center">
-            <input
-              type="checkbox"
-              id={`komal-${id}`}
-              className="sr-only peer"
-              checked={doneBy.komal}
-              onChange={(e) => onToggleCompletion(id, 'komal', e.target.checked)}
-            />
-            <label
-              htmlFor={`komal-${id}`}
-              className="relative flex items-center cursor-pointer"
-            >
-              <div className="w-10 h-5 bg-background-tertiary rounded-full peer-checked:bg-accent-primary peer-focus:outline-none transition-colors"></div>
+            <label>
+              <input
+                type="checkbox"
+                id={`komal-${id}`}
+                className="sr-only peer"
+                checked={doneBy.komal}
+                onChange={(e) => onToggleCompletion(id, 'komal', e.target.checked)}
+              />
+              <div className="w-10 h-5 transition-colors rounded-full bg-background-tertiary peer-checked:bg-accent-primary peer-focus:outline-none"></div>
               <div className="absolute left-[2px] w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></div>
               <span className="ml-2 text-sm font-medium">Komal</span>
             </label>
