@@ -7,7 +7,7 @@ import { useFirestore } from '../hooks/useFirestore';
 import { Loader } from 'lucide-react';
 
 const QuestionList: React.FC = () => {
-  const { questions, loading, error, toggleCompletion, deleteQuestion } = useFirestore();
+  const { questions, loading, error, toggleCompletion, deleteQuestion, updateNotes } = useFirestore();
   const [difficultyFilter, setDifficultyFilter] = useState<FilterOption>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [topicFilter, setTopicFilter] = useState('');
@@ -66,7 +66,7 @@ const QuestionList: React.FC = () => {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[200px]">
-        <Loader className="animate-spin h-8 w-8 text-accent-primary mb-4" />
+        <Loader className="w-8 h-8 mb-4 animate-spin text-accent-primary" />
         <p className="text-text-secondary">Loading questions...</p>
       </div>
     );
@@ -74,9 +74,9 @@ const QuestionList: React.FC = () => {
   
   if (error) {
     return (
-      <div className="bg-red-900/20 border border-red-800/50 rounded-md p-4 text-center">
+      <div className="p-4 text-center border rounded-md bg-red-900/20 border-red-800/50">
         <p className="text-red-500">{error}</p>
-        <p className="text-text-secondary mt-2 text-sm">Please refresh the page or try again later.</p>
+        <p className="mt-2 text-sm text-text-secondary">Please refresh the page or try again later.</p>
       </div>
     );
   }
@@ -95,7 +95,7 @@ const QuestionList: React.FC = () => {
       />
       
       {filteredQuestions.length === 0 ? (
-        <div className="text-center py-8 bg-background-secondary rounded-lg border border-background-tertiary">
+        <div className="py-8 text-center border rounded-lg bg-background-secondary border-background-tertiary">
           <p className="text-text-secondary">No questions found with the current filters.</p>
           {(difficultyFilter !== 'all' || topicFilter || searchQuery) && (
             <button
@@ -112,7 +112,7 @@ const QuestionList: React.FC = () => {
         </div>
       ) : (
         <>
-          <p className="text-text-secondary mb-4 text-sm">
+          <p className="mb-4 text-sm text-text-secondary">
             Showing {filteredQuestions.length} of {questions.length} questions
           </p>
           
@@ -123,6 +123,7 @@ const QuestionList: React.FC = () => {
                 question={question} 
                 onToggleCompletion={toggleCompletion}
                 onDelete={deleteQuestion}
+                onUpdateNotes={updateNotes}
               />
             ))}
           </div>

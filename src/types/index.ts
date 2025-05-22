@@ -8,6 +8,7 @@ export interface Question {
     komal: boolean;
   };
   createdAt: number;
+  notes?: string;
 }
 
 export type FilterOption = 'all' | 'Easy' | 'Medium' | 'Hard' | string;

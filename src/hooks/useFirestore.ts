@@ -23,7 +23,8 @@ export const useFirestore = () => {
             difficulty: data.difficulty,
             topic: data.topic,
             doneBy: data.doneBy || { puneet: false, komal: false },
-            createdAt: data.createdAt?.toMillis() || Date.now()
+            createdAt: data.createdAt?.toMillis() || Date.now(),
+            notes: data.notes || ''
           });
         });
         
@@ -98,6 +99,21 @@ export const useFirestore = () => {
     }
   };
 
+  const updateNotes = async (id: string, notes: string) => {
+    try {
+      const questionRef = doc(db, 'questions', id);
+      await updateDoc(questionRef, {
+        notes,
+        updatedAt: serverTimestamp()
+      });
+      return true;
+    } catch (err) {
+      console.error("Error updating notes:", err);
+      setError("Failed to update notes. Please try again.");
+      return false;
+    }
+  };
+
   return {
     questions,
     loading,
@@ -105,6 +121,7 @@ export const useFirestore = () => {
     addQuestion,
     updateQuestion,
     toggleCompletion,
-    deleteQuestion
+    deleteQuestion,
+    updateNotes
   };
 };

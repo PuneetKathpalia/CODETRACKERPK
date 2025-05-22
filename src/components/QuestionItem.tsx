@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Question } from '../types';
-import { ExternalLink, Trash2 } from 'lucide-react';
+import { ExternalLink, Trash2, Code, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface QuestionItemProps {
   question: Question;
   onToggleCompletion: (id: string, user: 'puneet' | 'komal', value: boolean) => void;
   onDelete: (id: string) => void;
+  onUpdateNotes: (id: string, notes: string) => void;
 }
 
 const QuestionItem: React.FC<QuestionItemProps> = ({ 
   question, 
   onToggleCompletion,
-  onDelete
+  onDelete,
+  onUpdateNotes
 }) => {
-  const { id, link, difficulty, topic, doneBy } = question;
+  const { id, link, difficulty, topic, doneBy, notes } = question;
+  const [showNotes, setShowNotes] = useState(false);
+  const [localNotes, setLocalNotes] = useState(notes || '');
   
   const getHostname = (url: string) => {
     try {
@@ -115,8 +119,18 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
               <span className="ml-2 text-sm font-medium">Komal</span>
             </label>
           </div>
+
           <button
-            className="ml-4 text-red-500 hover:text-red-700"
+            onClick={() => setShowNotes(!showNotes)}
+            className="flex items-center text-accent-primary hover:text-accent-primary-dark"
+            title="Toggle solution notes"
+          >
+            <Code size={20} />
+            {showNotes ? <ChevronUp size={16} className="ml-1" /> : <ChevronDown size={16} className="ml-1" />}
+          </button>
+
+          <button
+            className="text-red-500 hover:text-red-700"
             title="Delete question"
             onClick={() => onDelete(id)}
           >
@@ -124,6 +138,18 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
           </button>
         </div>
       </div>
+
+      {showNotes && (
+        <div className="mt-4 p-4 bg-background-tertiary rounded-lg">
+          <textarea
+            value={localNotes}
+            onChange={(e) => setLocalNotes(e.target.value)}
+            onBlur={() => onUpdateNotes(id, localNotes)}
+            placeholder="Add your solution code here..."
+            className="w-full h-40 p-2 text-sm font-mono bg-background-primary rounded border border-background-secondary focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          />
+        </div>
+      )}
     </div>
   );
 };
